@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4: Security Implementation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Task 4: Security Implementation</h1>
+    <form id="secureForm">
+        <label for="userInput">Enter Text:</label>
+        <input type="text" id="userInput" name="userInput" required>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <p>Sanitized Output: <span id="output"></span></p>
+    <p><a href="index.html">Back to Home</a></p>
+
+    <script>
+        // Sanitize input
+        document.getElementById("secureForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const userInput = document.getElementById("userInput").value;
+        const sanitizedInput = encodeURIComponent(userInput);
+        document.getElementById("output").textContent = sanitizedInput;
+        });
+
+        // Add CSRF token to form
+        const csrfToken = Math.random().toString(36).substr(2);
+        document.getElementById("secureForm").innerHTML += `<input type="hidden" name="csrfToken" value="${csrfToken}">`;
+    </script>
+</body>
+</html>

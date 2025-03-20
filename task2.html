@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2: Theme Preferences</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body.light { background: white; color: black; }
+        body.dark { background: black; color: white; }
+    </style>
+</head>
+<body class="light">
+    <h1>Task 2: Theme Preferences</h1>
+    <button id="themeToggle">Toggle Theme</button>
+    <p><a href="index.html">Back to Home</a></p>
+
+    <script>
+        // Retrieve theme from local storage
+        const savedSettings = JSON.parse(localStorage.getItem("settings")) || { theme: "light", fontSize: 16 };
+        document.body.classList.add(savedSettings.theme);
+
+        // Toggle theme
+        document.getElementById("themeToggle").addEventListener("click", function () {
+        const currentTheme = document.body.classList.contains("light") ? "dark" : "light";
+        document.body.classList.remove("light", "dark");
+        document.body.classList.add(currentTheme);
+
+        // Save theme preference
+        const settings = { theme: currentTheme, fontSize: savedSettings.fontSize };
+        localStorage.setItem("settings", JSON.stringify(settings));
+        });
+    </script>
+</body>
+</html>

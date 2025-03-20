@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 3: Shopping Cart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Task 3: Shopping Cart</h1>
+    <button id="addToCart">Add to Cart</button>
+    <ul id="cartItems"></ul>
+    <p><a href="index.html">Back to Home</a></p>
+
+    <script>
+        // Add item to cart
+        document.getElementById("addToCart").addEventListener("click", function () {
+        const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+        cart.push({ product: "Book", quantity: 1 });
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+        updateCartDisplay();
+        });
+
+        // Display cart items
+        function updateCartDisplay() {
+        const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+        const cartItems = document.getElementById("cartItems");
+        cartItems.innerHTML = cart.map(item => `<li>${item.product} (Quantity: ${item.quantity})</li>`).join("");
+        }
+
+        // Initialize cart display
+        updateCartDisplay();
+    </script>
+</body>
+</html>
